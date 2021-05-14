@@ -5,7 +5,7 @@ import os
 pDll = ctypes.CDLL("dependency\PythonDemo.dll")
 
 pDll.OpenSensor.restype = ctypes.c_bool #restype指定返回值类型
-IsOpen = pDll.OpenSensor(0)
+IsOpen = pDll.OpenSensor(2)
 print(IsOpen)
 
 
