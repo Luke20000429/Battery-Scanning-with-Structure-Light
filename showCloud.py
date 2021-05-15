@@ -10,6 +10,10 @@ def dynVisual(pointClouds, names, zaugment=1, s=2):
         x = points[:, 0]
         y = points[:, 1]
         z = points[:, 2]
+        if points.shape[1] == 4:
+            colors = points[:, 3]
+        else:
+            colors = z
     
         trace = go.Scatter3d(
             name=name,
@@ -19,7 +23,7 @@ def dynVisual(pointClouds, names, zaugment=1, s=2):
             mode='markers',
             marker=dict(
                 size=s,
-                color=z,                # set color to an array/list of desired values
+                color=colors,                # set color to an array/list of desired values
                 colorscale='Viridis',   # choose a colorscale
                 opacity=1
             )
