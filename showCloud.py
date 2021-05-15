@@ -4,7 +4,7 @@ from readData import *
 import plotly.graph_objs as go
 
 
-def dynVisual(pointClouds, names, zaugment=1):
+def dynVisual(pointClouds, names, zaugment=1, s=2):
     data = []
     for points, name in zip(pointClouds, names):
         x = points[:, 0]
@@ -18,7 +18,7 @@ def dynVisual(pointClouds, names, zaugment=1):
             z=z,
             mode='markers',
             marker=dict(
-                size=skip/10,
+                size=s,
                 color=z,                # set color to an array/list of desired values
                 colorscale='Viridis',   # choose a colorscale
                 opacity=1

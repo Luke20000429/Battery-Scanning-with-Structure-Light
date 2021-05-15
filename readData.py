@@ -15,7 +15,9 @@ def getPoints(name, prange=None, skip=0):
     print("y range: %d ~ %d"%(points[:,1].min(), points[:,1].max()))
     print("z range: %d ~ %d"%(points[:,2].min(), points[:,2].max()))
     if prange:
-        points = points[(np.abs(points[:,0])<=prange[0]) & (np.abs(points[:,1])<=prange[1]) & (np.abs(points[:,2])<=prange[2])]
+        # points = points[(np.abs(points[:,0])<=prange[0]) & (np.abs(points[:,1])<=prange[1]) & (np.abs(points[:,2])<=prange[2])]
+        points = points[(np.abs(points[:,0])<=prange[0]) & (np.abs(points[:,1])<=prange[1]) &
+                        (points[:,2]>=prange[2][0]) & (points[:,2]<=prange[2][1])]
     if skip:
         point_range = range(0, points.shape[0], skip) # skip points to prevent crash
         points = points[point_range]
