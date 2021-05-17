@@ -114,9 +114,10 @@ def warp_and_combine(img1, img2, H):
     p1 = cv2.warpPerspective(pattern1, T@H, imsize)
     p2 = cv2.warpPerspective(pattern2, T, imsize)
     pattern = p1 + p2
+    p = pattern.copy()
     pattern[pattern<=0] = 1
     V = (np.float32(I1)+np.float32(I2))/pattern.reshape(pattern.shape[0], pattern.shape[1])
-    return V
+    return V, p
 
 
 def make_warped(img1, img2):
@@ -141,6 +142,6 @@ def make_warped(img1, img2):
     points = np.int32(get_match_points(kp2, kp1, matches))
     H = RANSAC_fit_homography(points)
 
-    stitched = warp_and_combine(img2, img1, H)
+    stitched, pattern = warp_and_combine(img2, img1, H)
     
-    return np.uint8(stitched), H
+    return np.uint8(stitched), pattern, H
