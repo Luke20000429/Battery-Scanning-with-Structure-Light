@@ -16,11 +16,11 @@ class Transformer():
         for pix in pixs:
             index = 1944*pix[0,1] + pix[0,0]
             points.append(cloud[index].copy()) 
-            points.append(cloud[1944*pix[0,1] + pix[0,0]-1])
-            points.append(cloud[1944*pix[0,1] + pix[0,0]+1])
-            points.append(cloud[1944*(pix[0,1]-1) + pix[0,0]])
-            points.append(cloud[1944*(pix[0,1]+1) + pix[0,0]])
-        return np.asarray(points)
+            # points.append(cloud[1944*pix[0,1] + pix[0,0]-1])
+            # points.append(cloud[1944*pix[0,1] + pix[0,0]+1])
+            # points.append(cloud[1944*(pix[0,1]-1) + pix[0,0]])
+            # points.append(cloud[1944*(pix[0,1]+1) + pix[0,0]])
+        return points
         
     def fit(self):
         A = np.hstack([self.src[:], np.ones((self.src.shape[0], 1))])
