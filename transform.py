@@ -4,12 +4,12 @@ class Transformer():
     def __init__(self):
         self.src = None
         self.tgt = None
-        self.T = None
+        self.T = np.eye(4)
 
     def clear(self):
         self.src = None
         self.target = None
-        self.T = None
+        self.T = np.eye(4)
 
     def pix2point(self, pixs, cloud):
         points = []
@@ -25,12 +25,12 @@ class Transformer():
     def fit(self):
         A = np.hstack([self.src[:], np.ones((self.src.shape[0], 1))])
         re,_,_,_ = np.linalg.lstsq(A, self.tgt, rcond=None)
-        self.T = re
+        self.T = self.T@np.hstack((re, np.array([[0],[0],[0],[1]])))
         return re
 
     def transform(self, cloud):
         A = np.hstack([cloud, np.ones((cloud.shape[0], 1))])
         A = A.astype(np.float32)
         transCloud = A@self.T
-        return transCloud
+        return transCloud[:, :3]
         
