@@ -33,6 +33,11 @@ def filterPoints(points, prange=None, skip=0):
         points = points[point_range]
     return points
 
+def addColor(points, colorm):
+    color = colorm.copy().reshape(-1,1)
+    cpoints = np.hstack([points, color])
+    return cpoints
+
 if __name__ == '__main__':
     getPoints("..\dataset\scan7.npy", prange=(200, 150, 100), skip=20)
     

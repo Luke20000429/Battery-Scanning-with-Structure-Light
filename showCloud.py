@@ -52,7 +52,7 @@ def dynVisual(pointClouds, names, zaugment=1, s=2):
         xanchor="left",
         x=0.01
     ))
-    fig.update_scenes(aspectmode='manual', aspectratio=dict(x=1, y=3, z=zaugment))
+    fig.update_scenes(aspectmode='manual', aspectratio=dict(x=1, y=2, z=zaugment))
     return fig
 
 

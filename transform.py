@@ -11,15 +11,24 @@ class Transformer():
         self.target = None
         self.T = np.eye(4)
 
-    def pix2point(self, pixs, cloud):
+    def TAGpix2point(self, pixs, cloud):
+        # tag pix shape (n,1,2)
         points = []
         for pix in pixs:
+            # pix[0,1] in (0,1472)
+            # pix[0,0] in (0,1944)
             index = 1944*pix[0,1] + pix[0,0]
             points.append(cloud[index].copy()) 
             # points.append(cloud[1944*pix[0,1] + pix[0,0]-1])
             # points.append(cloud[1944*pix[0,1] + pix[0,0]+1])
             # points.append(cloud[1944*(pix[0,1]-1) + pix[0,0]])
             # points.append(cloud[1944*(pix[0,1]+1) + pix[0,0]])
+        return points
+
+    def pix2point(self, pix, cloud):
+        # pix shape (n,2)
+        index = 1944*pix[:,1] + pix[:,0]
+        points = cloud[index].copy()
         return points
         
     def fit(self):
