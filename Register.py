@@ -3,12 +3,11 @@ from util import *
 import cv2
 from matplotlib import pyplot as plt
 
-from readData import *
-from showFig import *
 from showCloud import *
 from warp import *
+from depth import *
 
-from transform import Transformer
+from Transformer import Transformer
 
 class Register():
     def __init__(self):
@@ -36,8 +35,8 @@ class Register():
     def getMatch(self, eps=0.5, region=900, debug=False):
         # mat1 must under mat1
         # scroll down mat0 -> mat1 
-        depth0 = self.points0[:,2].reshape((1472, 1944))
-        depth1 = self.points1[:,2].reshape((1472, 1944))
+        depth0 = getDepth(self.points0)
+        depth1 = getDepth(self.points1)
 
         kp1, desc1 = get_AKAZE(depth0[:region])
         kp2, desc2 = get_AKAZE(depth1[-region:])
