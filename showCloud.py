@@ -6,10 +6,16 @@ import plotly.graph_objs as go
 
 def dynVisual(pointClouds, names, zaugment=1, s=2):
     data = []
+    xlim = [0.0, 0.0]
+    ylim = [0.0, 0.0]
     for points, name in zip(pointClouds, names):
         x = points[:, 0]
         y = points[:, 1]
         z = points[:, 2]
+        xlim[0] = min(x.min(), xlim[0])
+        xlim[1] = max(x.max(), xlim[1])
+        ylim[0] = min(y.min(), ylim[0])
+        ylim[1] = max(y.max(), ylim[1])
         if points.shape[1] == 4:
             colors = points[:, 3]
         else:
@@ -52,7 +58,7 @@ def dynVisual(pointClouds, names, zaugment=1, s=2):
         xanchor="left",
         x=0.01
     ))
-    fig.update_scenes(aspectmode='manual', aspectratio=dict(x=1, y=2, z=zaugment))
+    fig.update_scenes(aspectmode='manual', aspectratio=dict(x=1, y=(ylim[1]-ylim[0])//(xlim[1]-xlim[0]), z=zaugment))
     return fig
 
 
